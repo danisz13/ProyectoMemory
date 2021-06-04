@@ -6,7 +6,10 @@
 package com.gf.app;
 
 import com.gf.controlador.Controlador;
+import com.gf.modelo.dao.FormaDAO;
+import com.gf.modelo.dao.NumeroDAO;
 import com.gf.modelo.dao.RankingDAO;
+import com.gf.modelo.dao.VocalDAO;
 
 /**
  *
@@ -15,7 +18,10 @@ import com.gf.modelo.dao.RankingDAO;
 public class Principal {
     public static void main(String[] args) {
         RankingDAO modeloRanking =new RankingDAO();
-        Controlador controlador=new Controlador(modeloRanking);
+        FormaDAO modeloForma =new FormaDAO();
+        NumeroDAO modeloNumero =new NumeroDAO();
+        VocalDAO modeloVocal =new VocalDAO();
+        Controlador controlador=new Controlador(modeloRanking, modeloForma, modeloNumero, modeloVocal);
         
     }
     

@@ -7,12 +7,8 @@ package com.gf.vista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -26,29 +22,23 @@ import javax.swing.JButton;
 public class VistaPrincipal extends javax.swing.JFrame {
 
     private VistaEleccion vistaEleccion;
+    private VistaJuegoYRanking vistaJuegoRanking;
     private AudioInputStream audioInputStream;
     private Clip clip;
+    private int eleccion=0;
 
     /**
      * Creates new form VistaPrincipal
      */
-    public VistaPrincipal() {
+    public VistaPrincipal() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         initComponents();
         setFrame();
         this.vistaEleccion = new VistaEleccion(this, true);
-        try {
-            this.audioInputStream = AudioSystem.getAudioInputStream(new File("./src/main/java/com/gf/recursos/InicioAplicacion.wav").getAbsoluteFile());
-            this.clip = AudioSystem.getClip();
-            this.clip.open(this.audioInputStream);
-        } catch (UnsupportedAudioFileException ex) {
-            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (LineUnavailableException ex) {
-            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.vistaJuegoRanking=new VistaJuegoYRanking(this, true, this.eleccion);
+
     }
 
+    //Metodo para ajustar tamaños y las imagenes al frame
     private void setFrame() {
         this.setLayout(new BorderLayout());
         this.setResizable(false);
@@ -59,17 +49,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
         this.setTitle("Memory");
     }
 
-    public void setSonido(boolean on) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+    
 
-        if (on == true) {
-            clip.start();
-        }
-        if (on == false) {
-            clip.stop();
-        }
-
+    public void setEleccion(int eleccion) {
+        this.eleccion = eleccion;
     }
 
+    public int getEleccion() {
+        return eleccion;
+    }
+    
     public JButton getBotonAjustes() {
         return botonAjustes;
     }
@@ -84,6 +73,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     public VistaEleccion getVistaEleccion() {
         return vistaEleccion;
+    }
+
+    public VistaJuegoYRanking getVistaJuegoRanking() {
+        return vistaJuegoRanking;
     }
 
     /**
