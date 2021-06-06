@@ -10,6 +10,7 @@ import com.gf.modelo.dao.NumeroDAO;
 import com.gf.modelo.dao.RankingDAO;
 import com.gf.modelo.dao.VocalDAO;
 import com.gf.modelo.entidades.Forma;
+import com.gf.modelo.entidades.Ranking;
 import com.gf.vista.VistaJuego;
 import com.gf.vista.VistaPrincipal;
 import java.awt.Color;
@@ -57,6 +58,7 @@ public class Controlador implements ActionListener, MouseListener {
     private boolean empezado = false;
     private Timer tiempo;
     private int cont;
+    private boolean faseAprendizaje = true;
 
     public Controlador(RankingDAO rankingDAO, FormaDAO formaDAO, NumeroDAO numeroDAO, VocalDAO vocalDAO) {
         try {
@@ -148,7 +150,7 @@ public class Controlador implements ActionListener, MouseListener {
 
         }
         for (int i = 0; i < botones.size(); i++) {
-            this.botones.get(i).setIcon(lista.get(i));
+
             this.botones.get(i).addMouseListener(this);
         }
     }
@@ -160,11 +162,23 @@ public class Controlador implements ActionListener, MouseListener {
         this.vistaJuego.getBotonAdivinar().setIcon(lista.get(num));
         this.vistaPrincipal.getVistaEleccion().setVisible(false);
         this.vistaJuego.setVisible(true);
-        this.tiempo=new Timer(0, this);
-        this.tiempo.setRepeats(false);
+        this.cont = 15;
+        this.tiempo = new Timer(1000, this);
         this.tiempo.start();
-        
-        
+
+    }
+
+    private void segundo() {
+        this.vistaJuego.getLabelTemporizador().setText(String.valueOf(cont));
+        if (this.faseAprendizaje) {
+            this.cont--;
+            if (this.cont == 0) {
+                this.faseAprendizaje = false;
+
+            }
+        } else if (this.faseAprendizaje == false) {
+            this.cont++;
+        }
     }
 
     @Override
@@ -199,10 +213,9 @@ public class Controlador implements ActionListener, MouseListener {
             } else if (e.getSource() == this.vistaPrincipal.getVistaEleccion().getBotonNumeros()) {
                 this.mode = 3;
                 setJuego();
-                
+
             } else if (e.getSource() == tiempo) {
-                cont++;
-                this.vistaJuego.getLabelTemporizador().setText(String.valueOf(cont));
+                segundo();
             }
 
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
@@ -214,10 +227,19 @@ public class Controlador implements ActionListener, MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         JButton boton = (JButton) e.getSource();
-        if (boton.getIcon() == this.vistaJuego.getBotonAdivinar().getIcon() && num < botones.size()) {
+        int numBot = botones.indexOf(boton);
+        if (numBot == num && num < botones.size() && this.faseAprendizaje==false ) {
             num++;
             this.vistaJuego.getBotonAdivinar().setIcon(lista.get(num));
-        } 
+            botones.get(numBot).setIcon(lista.get(numBot));
+        } else if (num == botones.size()) {
+            tiempo.stop();
+            JOptionPane.showMessageDialog(null, "Ganaste el juego en " + this.cont + " segundos!");
+            this.vistaJuego.setVisible(false);
+            rankingDAO.insert(new Ranking(rankingDAO.getUltimoId()+1, cont));
+        } else if (boton.getIcon() != this.vistaJuego.getBotonAdivinar().getIcon()) {
+
+        }
     }
 
     @Override
@@ -232,16 +254,18 @@ public class Controlador implements ActionListener, MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
-        JButton boton = (JButton) e.getSource();
-
+        if (this.faseAprendizaje) {
+            JButton boton = (JButton) e.getSource();
+            int numBot = botones.indexOf(boton);
+            botones.get(numBot).setIcon(lista.get(numBot));
+        }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
 
         JButton boton = (JButton) e.getSource();
-
+        boton.setIcon(null);
     }
 
 }

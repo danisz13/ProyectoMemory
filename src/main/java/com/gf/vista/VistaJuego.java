@@ -164,8 +164,6 @@ public class VistaJuego extends javax.swing.JFrame {
         panelBotones.add(jButton4);
         panelBotones.add(jButton5);
 
-        labelTemporizador.setText("a");
-
         javax.swing.GroupLayout panelAdivinarLayout = new javax.swing.GroupLayout(panelAdivinar);
         panelAdivinar.setLayout(panelAdivinarLayout);
         panelAdivinarLayout.setHorizontalGroup(

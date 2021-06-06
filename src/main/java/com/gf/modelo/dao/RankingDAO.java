@@ -64,7 +64,23 @@ public class RankingDAO {
         }
         return filasAfectadas;
     }
+    
+    public Integer getUltimoId() {
+        String sql = "select max(id) from ranking";
+        Integer ranking = null;
+        try (Statement st = Conexion.abrirConexion().prepareStatement(sql)) {
+           
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                ranking=rs.getInt(1);
+            }
 
+        } catch (SQLException ex) {
+            Logger.getLogger(RankingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ranking;
+    }
+    
     public Ranking get(Integer id) {
         String sql = "select * from ranking where id=?";
         Ranking ranking = null;

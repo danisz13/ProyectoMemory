@@ -91,9 +91,6 @@
         <Component class="javax.swing.JButton" name="botonAdivinar">
         </Component>
         <Component class="javax.swing.JLabel" name="labelTemporizador">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="a"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
