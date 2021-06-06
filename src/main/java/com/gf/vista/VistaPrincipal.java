@@ -7,11 +7,6 @@ package com.gf.vista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.io.IOException;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -22,43 +17,35 @@ import javax.swing.JButton;
 public class VistaPrincipal extends javax.swing.JFrame {
 
     private VistaEleccion vistaEleccion;
-    private VistaJuegoYRanking vistaJuegoRanking;
-    private AudioInputStream audioInputStream;
-    private Clip clip;
-    private int eleccion=0;
+    private VistaRanking vistaRanking;
+    
 
     /**
      * Creates new form VistaPrincipal
      */
-    public VistaPrincipal() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public VistaPrincipal(){
         initComponents();
         setFrame();
         this.vistaEleccion = new VistaEleccion(this, true);
-        this.vistaJuegoRanking=new VistaJuegoYRanking(this, true, this.eleccion);
+        this.vistaRanking = new VistaRanking(this, true);
 
     }
 
     //Metodo para ajustar tamaños y las imagenes al frame
     private void setFrame() {
+        this.getContentPane().setBackground(Color.orange);
         this.setLayout(new BorderLayout());
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.imagenMemory.setIcon(new ImageIcon("./src/main/java/com/gf/recursos/Memory_principal.png"));
         this.botonAjustes.setIcon(new ImageIcon("./src/main/java/com/gf/recursos/configuracion.png"));
+        this.botonComenzar.setIcon(new ImageIcon("./src/main/java/com/gf/recursos/boton_play.png"));
         this.setBackground(Color.black);
         this.setTitle("Memory");
     }
 
     
 
-    public void setEleccion(int eleccion) {
-        this.eleccion = eleccion;
-    }
-
-    public int getEleccion() {
-        return eleccion;
-    }
-    
     public JButton getBotonAjustes() {
         return botonAjustes;
     }
@@ -75,8 +62,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         return vistaEleccion;
     }
 
-    public VistaJuegoYRanking getVistaJuegoRanking() {
-        return vistaJuegoRanking;
+    public VistaRanking getVistaRanking() {
+        return vistaRanking;
     }
 
     /**
@@ -98,38 +85,42 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         botonRanking.setText("Ranking");
 
-        botonComenzar.setText("Comenzar");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 394, Short.MAX_VALUE)
-                .addComponent(botonAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
-            .addGroup(layout.createSequentialGroup()
+                .addGap(146, 146, 146)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(imagenMemory, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(44, 44, 44)
+                        .addComponent(botonComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonRanking, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(30, 30, 30))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(191, 191, 191)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(botonComenzar, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                            .addComponent(botonRanking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(168, Short.MAX_VALUE))
+                        .addComponent(imagenMemory, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
-                .addComponent(imagenMemory, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonComenzar)
-                .addGap(21, 21, 21)
-                .addComponent(botonRanking)
-                .addGap(12, 12, 12)
+                .addContainerGap(39, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(imagenMemory, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)
+                        .addComponent(botonRanking)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(botonComenzar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)))
                 .addComponent(botonAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10))
         );

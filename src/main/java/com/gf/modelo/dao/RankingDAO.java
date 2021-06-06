@@ -9,6 +9,7 @@ import com.gf.conexion.Conexion;
 import com.gf.modelo.entidades.Ranking;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -93,6 +94,61 @@ public class RankingDAO {
             Logger.getLogger(RankingDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
+    }
+
+    public Object[][] getDatos() {
+        Object[][] datos = null;
+        try (Statement st = Conexion.abrirConexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+            String sql = "SELECT * FROM ranking";
+            ResultSet rs = st.executeQuery(sql);
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            rs.last();
+
+            int numFilas = rs.getRow();
+            int numColumnas = rsmd.getColumnCount();
+            datos = new Object[numFilas][numColumnas];
+
+            //procesamos el resultSet de datos
+            rs.beforeFirst();
+            int i = 0; //Indicador de fila de la matriz
+            int j = 0; //Indicador de columna de la matriz
+            while (rs.next()) {
+                for (j = 0; j < numColumnas; j++) {
+                    datos[i][j] = rs.getObject(j + 1);
+                }
+                i++;
+            }
+
+            return datos;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return datos;
+    }
+
+    public Object[] getColumnas() {
+        Object[] titulosColumnas = null;
+        try (Statement st = Conexion.abrirConexion().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+            String sql = "SELECT * FROM ranking";
+
+            ResultSet rs = st.executeQuery(sql);
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int numColumnas = rsmd.getColumnCount();
+
+            titulosColumnas = new Object[numColumnas];
+
+            //
+            for (int i = 0; i < numColumnas; i++) {
+                titulosColumnas[i] = rsmd.getColumnName(i + 1);
+            }
+
+            return titulosColumnas;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return titulosColumnas;
     }
 
 }

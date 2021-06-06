@@ -8,6 +8,10 @@ package com.gf.modelo.dao;
 import com.gf.conexion.Conexion;
 import com.gf.modelo.entidades.Forma;
 import com.gf.modelo.entidades.Vocal;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,13 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Dani
  */
 public class FormaDAO {
-     public int insert(Forma forma) {
+
+    public int insert(Forma forma) {
         String sql = "Insert into formas values (?,?)";
         int filasAfectadas = 0;
         try (PreparedStatement ps = Conexion.abrirConexion().prepareStatement(sql)) {
@@ -80,9 +87,9 @@ public class FormaDAO {
         return forma;
     }
 
-    public List<Forma> getAll() {
+    public ArrayList<Forma> getAll() {
         String sql = "select * from vocales";
-        List<Forma> lista = new ArrayList<>();
+        ArrayList<Forma> lista = new ArrayList<>();
         try (Statement st = Conexion.abrirConexion().createStatement()) {
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
@@ -91,6 +98,27 @@ public class FormaDAO {
 
         } catch (SQLException ex) {
             Logger.getLogger(FormaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+
+    public ArrayList<ImageIcon> getAllImagenes() {
+        String sql = "select imagen from formas";
+        ArrayList<ImageIcon> lista = new ArrayList<>();
+        Blob blob = null;
+        try (Statement st = Conexion.abrirConexion().createStatement()) {
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                blob = rs.getBlob(1);
+                byte[] data = blob.getBytes(1, (int) blob.length());
+                BufferedImage img = ImageIO.read(new ByteArrayInputStream(data));
+                lista.add(new ImageIcon(img));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(NumeroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(NumeroDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
     }

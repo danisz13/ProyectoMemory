@@ -7,6 +7,10 @@ package com.gf.modelo.dao;
 
 import com.gf.conexion.Conexion;
 import com.gf.modelo.entidades.Vocal;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,12 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Dani
  */
 public class VocalDAO {
+
     public int insert(Vocal vocal) {
         String sql = "Insert into vocales values (?,?)";
         int filasAfectadas = 0;
@@ -79,9 +86,9 @@ public class VocalDAO {
         return vocal;
     }
 
-    public List<Vocal> getAll() {
+    public ArrayList<Vocal> getAll() {
         String sql = "select * from vocales";
-        List<Vocal> lista = new ArrayList<>();
+        ArrayList<Vocal> lista = new ArrayList<>();
         try (Statement st = Conexion.abrirConexion().createStatement()) {
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
@@ -90,6 +97,27 @@ public class VocalDAO {
 
         } catch (SQLException ex) {
             Logger.getLogger(VocalDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+
+    public ArrayList<ImageIcon> getAllImagenes() {
+        String sql = "select imagen from vocales";
+        ArrayList<ImageIcon> lista = new ArrayList<>();
+        Blob blob = null;
+        try (Statement st = Conexion.abrirConexion().createStatement()) {
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                blob = rs.getBlob(1);
+                byte[] data = blob.getBytes(1, (int) blob.length());
+                BufferedImage img = ImageIO.read(new ByteArrayInputStream(data));
+                lista.add(new ImageIcon(img));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(NumeroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(NumeroDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
     }

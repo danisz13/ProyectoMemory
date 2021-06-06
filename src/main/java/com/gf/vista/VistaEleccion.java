@@ -6,7 +6,9 @@
 package com.gf.vista;
 
 
+import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 /**
  *
@@ -14,7 +16,7 @@ import javax.swing.ImageIcon;
  */
 public class VistaEleccion extends javax.swing.JDialog {
 
-    private VistaPrincipal vistaPrincipal;
+   
 
     /**
      * Creates new form VistaEleccion
@@ -23,8 +25,7 @@ public class VistaEleccion extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setFrame();
-        this.vistaPrincipal = (VistaPrincipal) parent;
-
+        
     }
 
     private void setFrame() {
@@ -33,9 +34,23 @@ public class VistaEleccion extends javax.swing.JDialog {
         this.botonFiguras.setIcon(new ImageIcon("./src/main/java/com/gf/recursos/figuras.png"));
         this.botonNumeros.setIcon(new ImageIcon("./src/main/java/com/gf/recursos/numeros.png"));
         this.botonVocales.setIcon(new ImageIcon("./src/main/java/com/gf/recursos/letras.png"));
+        this.jLabel1.setForeground(Color.white);
         this.setTitle("Elige una opcion");
+        this.getContentPane().setBackground(Color.blue);
     }
 
+    public JButton getBotonFiguras() {
+        return botonFiguras;
+    }
+
+    public JButton getBotonNumeros() {
+        return botonNumeros;
+    }
+
+    public JButton getBotonVocales() {
+        return botonVocales;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

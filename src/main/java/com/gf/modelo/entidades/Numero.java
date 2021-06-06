@@ -20,7 +20,7 @@ public class Numero {
         this.id = id;
         this.imagen = imagen;
     }
-
+    
     public Numero() {
     }
 
