@@ -7,7 +7,6 @@ package com.gf.vista;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 /**
  *
@@ -127,6 +125,14 @@ public class VistaJuego extends javax.swing.JFrame {
         this.panelBotones = panelBotones;
     }
 
+    public JLabel getLabelReloj() {
+        return labelReloj;
+    }
+
+    public JLabel getLabelAprendizaje() {
+        return labelAprendizaje;
+    }
+
     public ArrayList<JButton> getAllBotones() {
         ArrayList<JButton> lista = new ArrayList<>();
         Component[] cont = this.getPanelBotones().getComponents();
@@ -154,6 +160,8 @@ public class VistaJuego extends javax.swing.JFrame {
         panelAdivinar = new javax.swing.JPanel();
         botonAdivinar = new javax.swing.JButton();
         labelTemporizador = new javax.swing.JLabel();
+        labelReloj = new javax.swing.JLabel();
+        labelAprendizaje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,6 +172,10 @@ public class VistaJuego extends javax.swing.JFrame {
         panelBotones.add(jButton4);
         panelBotones.add(jButton5);
 
+        labelTemporizador.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+
+        labelAprendizaje.setText("FASE DE APRENDIZAJE");
+
         javax.swing.GroupLayout panelAdivinarLayout = new javax.swing.GroupLayout(panelAdivinar);
         panelAdivinar.setLayout(panelAdivinarLayout);
         panelAdivinarLayout.setHorizontalGroup(
@@ -171,9 +183,11 @@ public class VistaJuego extends javax.swing.JFrame {
             .addGroup(panelAdivinarLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(panelAdivinarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelAprendizaje)
                     .addComponent(botonAdivinar, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelAdivinarLayout.createSequentialGroup()
-                        .addGap(63, 63, 63)
+                        .addComponent(labelReloj, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
                         .addComponent(labelTemporizador, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -182,9 +196,13 @@ public class VistaJuego extends javax.swing.JFrame {
             .addGroup(panelAdivinarLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(botonAdivinar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(labelTemporizador, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelAprendizaje)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelAdivinarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelReloj, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTemporizador, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -216,6 +234,8 @@ public class VistaJuego extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel labelAprendizaje;
+    private javax.swing.JLabel labelReloj;
     private javax.swing.JLabel labelTemporizador;
     private javax.swing.JPanel panelAdivinar;
     private javax.swing.JPanel panelBotones;

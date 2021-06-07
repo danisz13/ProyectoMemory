@@ -65,9 +65,11 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="labelAprendizaje" min="-2" max="-2" attributes="0"/>
                       <Component id="botonAdivinar" min="-2" pref="201" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                          <Component id="labelReloj" min="-2" pref="85" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           <Component id="labelTemporizador" min="-2" pref="71" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -80,9 +82,14 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Component id="botonAdivinar" min="-2" pref="131" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="labelTemporizador" min="-2" pref="68" max="-2" attributes="0"/>
-                  <EmptySpace pref="71" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="labelAprendizaje" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="labelReloj" min="-2" pref="82" max="-2" attributes="0"/>
+                      <Component id="labelTemporizador" min="-2" pref="68" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="39" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -91,6 +98,18 @@
         <Component class="javax.swing.JButton" name="botonAdivinar">
         </Component>
         <Component class="javax.swing.JLabel" name="labelTemporizador">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="48" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelReloj">
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelAprendizaje">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="FASE DE APRENDIZAJE"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
